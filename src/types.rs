@@ -1,3 +1,5 @@
+use std::string;
+
 use serde::Deserialize;
 
 
@@ -42,9 +44,10 @@ pub struct JournalEntry {
     pub is_pinned: bool,
     pub uuid: String,
     pub starred: bool,
-    pub text: String,
+    pub text: Option<String>, // can apparently be entries without text
     #[serde(rename = "richText")]
     pub rich_text : Option<String>,
+    pub tags : Option<Vec<String>>,
 }
 
 
@@ -78,7 +81,7 @@ pub struct Photo {
     #[serde(rename = "fnumber")]
     pub f_number: Option<String>,
     pub width: i32,
-    pub md5: Option<String>,
+    pub md5: String,
     #[serde(rename = "appleLocalIdentifier")]
     pub apple_local_identifier: Option<String>,
     #[serde(rename = "isSketch")]
