@@ -10,18 +10,19 @@ use structopt::StructOpt;
 #[structopt(name = "converter")]
 
 struct Flags {
-    /// Input folder
+    // Input folder
     #[structopt(short = "i", long = "input-folder")]
     input_folder: String,
 
-    /// Output folder
+    // Output folder
     #[structopt(short = "o", long = "output-folder")]
     output_folder: String,
 
-    /// if the Icons Plugin is used?
+    // if the Icons Plugin is used?
     #[structopt(long = "icons")]
     icons: bool,
 
+    // tag prefix
     #[structopt(long = "tag-prefix", short="t", default_value = "#journal/")]
     tag_prefix: String,
 }

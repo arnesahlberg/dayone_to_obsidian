@@ -6,7 +6,14 @@ use std::path::Path;
 
 pub fn convert_to_obsidian (input_folder : &str, output_folder : &str, use_icons : bool, tag_prefix : &str) -> Result<(), Box<dyn Error>> {
     let filepath = Path::new(input_folder).join("Journal.json");
-    let mut file = File::open(filepath).unwrap();
+    let mut file = 
+        match File::open(&filepath) {
+            Ok(file) => file,
+            Err(_) => {
+                println!("File not found: {}", filepath.display());
+                return Err(format!("File not found: {}", filepath.display()).into());
+            }
+        };
     let mut contents = String::new();
 
     file.read_to_string(&mut contents)?;
