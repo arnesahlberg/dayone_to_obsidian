@@ -1,15 +1,13 @@
-use std::{fs::File, io::Read};
 use std::error::Error;
 pub mod types;
-use types::Journal;
 pub mod converter;
 use converter::convert_to_obsidian;
 use structopt::StructOpt;
 
+
 #[derive(StructOpt, Debug)]
 #[structopt(name = "converter")]
-
-struct Flags {
+struct Options {
     // Input folder
     #[structopt(short = "i", long = "input-folder")]
     input_folder: String,
@@ -23,13 +21,29 @@ struct Flags {
     icons: bool,
 
     // tag prefix
-    #[structopt(long = "tag-prefix", short="t", default_value = "#journal/")]
+    #[structopt(long = "tag-prefix", short="t", default_value = "#journal")]
     tag_prefix: String,
+
+    // if this flag is not used every entry will be tagged with the tag-prefix even if the original entry is not tagged
+    #[structopt(long = "no-tag-if-empty")]
+    no_tag_if_empty: bool,
+
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let flags = Flags::from_args();
+    let flags = Options::from_args();
 
-    convert_to_obsidian(&flags.input_folder, &flags.output_folder, flags.icons, &flags.tag_prefix)?;
+    if flags.tag_prefix.ends_with("/") {
+        return Err("A tag-prefix ending with '/' is implicitly added. Please remove the '/' from the tag-prefix.".into());
+    }
+
+    convert_to_obsidian(
+        &flags.input_folder, 
+        &flags.output_folder, 
+        flags.icons, 
+        &flags.tag_prefix, 
+        !flags.no_tag_if_empty
+    )?;
+
     Ok(())
 }

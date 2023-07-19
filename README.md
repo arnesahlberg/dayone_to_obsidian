@@ -13,7 +13,8 @@ This is a script to convert Day One JSON exports to Obsidian compatible markdown
 ## Additional Settings
 
 - Use the flag `--icons` if you use the Icons Plugin for Obsidian.
-- Use the setting `--tag-prefix <tag-prefix>` to use a custom tag prefix for your day one tags. The default is `#journal/`.
+- Use the setting `--tag-prefix <tag-prefix>` to use a custom tag prefix for your day one tags. The default is `#journal`.
+- Use the flag `--no-tag-if-empty` to not add a tag if the entry has no tags. Otherwise every Day One entry without a tag will be tagged with the tag-prefix.
 
 
 ## TODO

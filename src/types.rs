@@ -1,5 +1,3 @@
-use std::string;
-
 use serde::Deserialize;
 
 
@@ -48,8 +46,29 @@ pub struct JournalEntry {
     #[serde(rename = "richText")]
     pub rich_text : Option<String>,
     pub tags : Option<Vec<String>>,
+    #[serde(rename = "pdfAttachments")]
+    pub pdf_attachments : Option<Vec<PdfAttachment>>,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct PdfAttachment {
+    pub favorite: bool,
+    #[serde(rename = "fileSize")]
+    pub file_size: u64,
+    #[serde(rename = "orderInEntry")]
+    pub order_in_entry: u32,
+    pub width: u32,
+    #[serde(rename = "type")]
+    pub pdf_attachment_type: String,
+    pub identifier: String,
+    pub height: u32,
+    #[serde(rename = "creationDevice")]
+    pub creation_device: String,
+    pub duration: u32,
+    pub md5: String,
+    #[serde(rename = "pdfName")]
+    pub pdf_name: String,
+}
 
 
 #[derive(Debug, Deserialize)]
@@ -101,7 +120,7 @@ pub struct Video {
     pub order_in_entry: Option<i32>,
     pub width: i32,
     #[serde(rename = "type")]
-    pub video_type: Option<String>,
+    pub video_type: String,
     pub identifier: String,
     pub date: Option<String>,
     pub location: Option<Location>,
@@ -109,7 +128,7 @@ pub struct Video {
     #[serde(rename = "creationDevice")]
     pub creation_device: Option<String>,
     pub duration: Option<f64>,
-    pub md5: Option<String>,
+    pub md5: String,
 }
 
 
