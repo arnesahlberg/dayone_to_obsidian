@@ -19,7 +19,7 @@ This is a script to convert Day One JSON exports to Obsidian compatible markdown
 
 ## TODO
 
-- Add importing of videos and PDFs.
+- Add importing PDFs.
 
 
 
