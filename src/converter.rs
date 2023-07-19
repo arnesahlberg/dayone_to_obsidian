@@ -119,14 +119,14 @@ pub fn convert_to_obsidian (
         match entry.photos {
             Some(ref photos) => {
                 for photo in photos {
-                    let file_name = format!("{}.jpeg", photo.md5) ;
-                    let new_file_name = format!("{}.jpeg", photo.identifier) ; // all files have .jpeg extension afaik
+                    let file_name = format!("{}.{}", photo.md5, photo.photo_type) ;
+                    let new_file_name = format!("{}.{}", photo.identifier, photo.photo_type) ; 
                     let temp_path = { // older version had identifier instead of md5 as filename (and just a single file per entry)
                         let p = Path::new(input_folder).join("photos").join(&file_name);
                         if p.exists() {
                             p
                         } else {
-                            Path::new(input_folder).join("photos").join( format!("{}.jpeg", photo.identifier))
+                            Path::new(input_folder).join("photos").join( format!("{}.{}", photo.identifier, photo.photo_type))
                         }
                     } ;
                     // new file_name variable based on which path existed
@@ -136,7 +136,7 @@ pub fn convert_to_obsidian (
                     // check if file exists, if not skip
                     if !temp_path.exists() {
                         println!("Warning in entry from '{}': Cannot find file {}.", date_header, temp_path.to_str().unwrap());
-                        text = text.replace(&format!("![](dayone-moment://{})", &file_name.replace(".jpeg", "")), "");
+                        text = text.replace(&format!("![](dayone-moment://{})", &file_name.replace(&format!(".{}", photo.photo_type), "")), "");
                         continue;
                     }
                     

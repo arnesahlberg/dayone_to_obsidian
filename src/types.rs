@@ -88,7 +88,7 @@ pub struct Photo {
     #[serde(rename = "cameraMake")]
     pub camera_make: Option<String>,
     #[serde(rename = "type")]
-    pub photo_type: Option<String>,
+    pub photo_type: String,
     #[serde(rename = "lensMake")]
     pub lens_make: Option<String>,
     pub identifier: String,
